@@ -1,0 +1,44 @@
+<template>
+    <lightning-tabset>
+        <lightning-tab label="Assigned Requests">
+            <lightning-card title="Requests Which are Yet to Update Exam Status" icon-name="custom:custom14">
+            </lightning-card>
+            <template for:each={Requests} for:item="request" for:index="i">
+                <lightning-card key={abc}>
+                    
+                    <p>Request Id : {request.Name}<br/> Employee Name : {request.Employee__r.Name}<br/> Certification Name : {request.Certification__r.Name} </p>
+                    <p> Status : {request.Status__c}<br/> Voucher :  {request.Voucher__c} <br/> Comments : {request.Comments__c}  </p>
+                    <lightning-button-group>
+                        <lightning-button label="Passed" value={i} variant="brand" onclick={passedreq}></lightning-button>
+                        <lightning-button label="Failed" value={i} onclick={failedreq}></lightning-button>
+                        
+                    </lightning-button-group>
+                </lightning-card>
+             </template>
+        </lightning-tab>
+        <lightning-tab label="Passed Requests">
+            <lightning-card title="Requests Which are Passed" icon-name="custom:custom14">
+            </lightning-card>
+            <template for:each={Requests1} for:item="request1" for:index="i">
+                <lightning-card key={abc1}>
+                    <p>Request Id : {request1.Name}<br/> Employee Name : {request1.Employee__r.Name} <br/>Certification Name : {request1.Certification__r.Name} </p>
+                    <p> Status : {request1.Status__c}<br/> Voucher :  {request1.Voucher__r.Name} <br/> Comments : {request1.Comments__c}  </p>
+               
+
+                </lightning-card>
+            </template>
+        </lightning-tab>
+        <lightning-tab label="Failed Requests">
+            <lightning-card title="Requests Which are Failed" icon-name="custom:custom14">
+            </lightning-card>
+            <template for:each={Requests2} for:item="request1" for:index="i">
+                <lightning-card key={abc2}>
+                    <p>Request Id : {request1.Name}<br/> Employee Name : {request1.Employee__r.Name}<br/> Certification Name : {request1.Certification__r.Name} </p>
+                    <p> Status : {request1.Status__c}<br/> Voucher :  {request1.Voucher__r.Name} <br/> Comments : {request1.Comments__c}  </p>
+               
+
+                </lightning-card>
+            </template>
+        </lightning-tab>
+    </lightning-tabset>
+</template>

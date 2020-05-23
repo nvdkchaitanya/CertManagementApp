@@ -1,0 +1,312 @@
+<template>
+
+    <lightning-card title="Welcome to Employee Certifications App..!!!" icon-name="custom:custom14">
+        <div class="slds-m-around_medium">
+            <p>Hola!, User</p>
+            
+            <lightning-button-group>
+                <lightning-button label="Add New Employee" onclick={empform}></lightning-button>
+                <lightning-button label="Add New Request" onclick={reqform}></lightning-button>
+                <lightning-button label="Add New Certification" onclick={certform}></lightning-button>
+                <lightning-button label="Add New Voucher" onclick={vouform}></lightning-button>
+            </lightning-button-group>
+        
+        </div>
+    </lightning-card>
+<!--Pop Up for creating New Employee--> 
+    <template if:true={empflag}>
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <header class="slds-modal__header slds-modal__header_empty">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+            <!--<svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>-->
+            <span class="slds-assistive-text">Close</span>
+            </button>
+            <p>New Employee form</p>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning-input label="Employee Name" value={EmpName} type="String" required onchange={EmpNameChange}></lightning-input>
+                <lightning-input label="Employee Id" value={EmpId} type="Number" required onchange={EmpIdChange}></lightning-input>
+                <lightning-input label="Employee Email" value={EmpMail} type="Email" required onchange={EmpMailChange}></lightning-input>
+                <lightning-input label="Primary Skill" value={EmpPS} type="String" required onchange={EmpPSChange}></lightning-input>
+                <lightning-input label="Secondary Skill" value={EmpSS} type="String" onchange={EmpSSChange}></lightning-input>
+                <lightning-input label="Employee Experience" value={EmpExp} type="Number" required onchange={EmpExpChange}></lightning-input>
+                <lightning-input label="Comments" value={EmpComm} type="String" onchange={EmpCommChange}></lightning-input>
+            </div>
+            <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={closepopup}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={addemp}>Add</button>
+            </footer>
+            </div>
+        </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+<!--Pop Up for creating New Certificate-->
+    <template if:true={certflag}>
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <header class="slds-modal__header slds-modal__header_empty">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Close</span>
+            </button>
+            <p>New Certification form</p>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                <lightning-input label="Certification Name" value={CertName} type="String" required onchange={CertNameChange}></lightning-input>
+                <lightning-input label="Certification Id" value={CertId} type="Number" required onchange={CertIdChange}></lightning-input>
+                <lightning-input label="Certification Cost" value={CertCost} type="Number" required onchange={CertCostChange}></lightning-input>
+                <lightning-input label="Certification Comments" value={CertComm} type="String" onchange={CertCommChange}></lightning-input>
+            </div>
+            <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={closepopup}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={addcert}>Add</button>
+            </footer>
+            </div>
+        </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+<!--Pop Up for creating New Voucher-->
+    <template if:true={vouflag}>
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <header class="slds-modal__header slds-modal__header_empty">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Close</span>
+            </button>
+            <p>New Voucher form</p>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                <lightning-input label="Voucher Id" value={VouId} type="String" minlength="10" maxlength="10" message-when-bad-input="Id should be 10 characters long." required onchange={VouIdChange}></lightning-input>
+                <lightning-input label="Voucher Cost" value={VouCost} type="Currency" required onchange={VouCostChange}></lightning-input>
+                <lightning-input label="Voucher Validity" value={VouValid} type="date" required onchange={VouValidChange}></lightning-input>
+                <!--<lightning-input label="Voucher Certification" value={VouCert} type="String" required onchange={VouCertChange}></lightning-input>-->
+                <!--Code for Lookup Inpput Field-->
+                <!-- <template if:true={openlookup}> -->
+                    <!-- <lightning-card title="Voucher Certification" icon-name="standard:record">
+                        <div class="slds-p-around_small"> -->
+                            <c-certlookupcomponent object-name="Certification__c" field-name="Name" 
+                                label="Certification" parentidfield="Certification__c" onselect={handleAutoSelect}
+                                iconname="standard:account" ></c-certlookupcomponent>
+                        <!-- </div>
+                    </lightning-card> -->
+                <!-- </template> -->
+                
+                <lightning-input label="Voucher Comments" value={VouComm} type="Text" onchange={VouCommChange}></lightning-input>
+            </div>
+            
+            
+            
+
+            <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={closepopup}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={addvou}>Add</button>
+            </footer>
+            </div>
+        </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={reqflag}>
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <header class="slds-modal__header slds-modal__header_empty">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Close</span>
+            </button>
+            <p>New Request form</p>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-4">
+                <c-certlookupcomponent object-name="Employee__c" 
+                    field-name="Name" 
+                    label="Employee"
+                    parentidfield="Employee__c"
+                    onselect={handleAutoSelect1}
+                    iconname="standard:contact">
+                </c-certlookupcomponent>
+                <c-certlookupcomponent object-name="Certification__c" 
+                    field-name="Name" 
+                    label="Certification" 
+                    parentidfield="Certification__c" 
+                    onselect={handleAutoSelect}
+                    iconname="standard:drafts">
+                </c-certlookupcomponent>
+                <lightning-input label="Request Due Date" value={ReqDueDate} type="date" required onchange={ReqDueDateChange}></lightning-input>
+                <lightning-input label="Request Comments" value={ReqComm} type="Text" onchange={ReqCommChange}></lightning-input>
+            </div>
+            <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={closepopup}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={addreq}>Add</button>
+            </footer>
+            </div>
+        </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--Code for Lookup Input Fields-->
+    <!-- <template if:true={openlookup}>
+        <lightning-card title="Lookup Demo" icon-name="standard:record">
+            <div class="slds-p-around_small">
+                <c-certlookupcomponent object-name="Certification__c" field-name="Name"
+                    label="Certification" parentidfield="Certification__c"
+                    iconname="standard:account" ></c-certlookupcomponent>
+            </div>
+        </lightning-card>
+    </template> -->
+    <!--Code for getting Request Records List-->
+    <template for:each={Requests} for:item="request" for:index="i">
+        <lightning-card key={abc}>
+            <p>Employee Name : {request.Employee__c} Certification Name : {request.Certification__c} Status : {request.Status__c}</p>
+            <p>Voucher : {request.Voucher__c} Due Date :{request.Due_Date__c} Comments : {request.Comments__c} Request Id : {request.Name} </p>
+            <lightning-button-group>
+                <lightning-button label="Approve" value={i} variant="brand" onclick={approvereq}></lightning-button>
+                <lightning-button label="Reject" value={i} variant="brand" onclick={rejectreq}></lightning-button>
+                <lightning-button label="Submit for approval" variant="brand" value={i} onclick={submitreq}></lightning-button>
+                
+            </lightning-button-group>
+        
+        </lightning-card>
+    </template>
+        
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+<template>
+
+    <lightning-card title="Requests Which are yet to Submit for Approval...!!!!" icon-name="custom:custom14">
+    </lightning-card>
+    <template for:each={Requests} for:item="request" for:index="i">
+        <lightning-card key={abc}>
+            <p>Employee Name : {request.Employee__r.Name} <br/>Certification Name : {request.Certification__r.Name} <br/>Status : {request.Status__c}</p>
+            <p>Voucher : {request.Voucher__c} <br/>Due Date :{request.Due_Date__c}<br/> Comments : {request.Comments__c}<br/> Request Id : {request.Name} </p>
+            <lightning-button-group>
+                <lightning-button label="Submit for approval" variant="brand" value={i} onclick={submitreq}></lightning-button>
+                
+            </lightning-button-group>
+        
+        </lightning-card>
+    </template>
+</template> 
